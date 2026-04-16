@@ -1,0 +1,83 @@
+﻿@model RestauranteApp.Models.M_Reservacion
+
+@{
+    ViewBag.Title = "EliminaReservaciones";
+}
+
+<h2>Eliminar Reservación</h2>
+
+<h3>Está seguro que desea eliminar la reservación seleccionado?</h3>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdReservaciones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdReservaciones)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdCliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdCliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdMesa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdMesa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdMenu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdMenu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaReservacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaReservacion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("Acciones", "Reservaciones", FormMethod.Post, new { enctype = "multipart/formdata", @id = "frmReservaciones" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(w => w.IdReservaciones)
+        @Html.HiddenFor(w => w.IdCliente)
+        @Html.HiddenFor(w => w.IdMesa)
+        @Html.HiddenFor(w => w.IdMenu)
+        @Html.HiddenFor(w => w.Cantidad)
+        @Html.HiddenFor(w => w.FechaReservacion)
+
+        <div class="form-actions no-color">
+            <button type="submit" id="btnEliminar" name="submitButton" value="Eliminar" class="btn btn-danger" title="Agregar" data-toggle="tooltip" data-container="body"
+                    data-placement="right">
+                Eliminar
+            </button> |
+            @Html.ActionLink("Regresar", "ListaReservaciones", null, new { @class = "btn btn-primary btn-sm" })
+        </div>
+    }
+</div>

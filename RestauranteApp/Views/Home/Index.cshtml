@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Inicio";
+}
+<br />
+<div class="jumbotron jumbotron-fondo text-center">
+    <h1><span class="glyphicon glyphicon-fire"></span> Bienvenido al Sistema del Restaurante Fénix</h1>
+    <p class="lead">Administre fácilmente clientes, menús, mesas y reservaciones.</p>
+</div>
+
+<div style="width: 100%; display: flex; justify-content: center; padding: 0;">
+
+    <div style="width: 900px; display: flex; justify-content: space-between; margin: 0 auto;">
+
+        <div style="width: 210px; margin: 0 5px;">
+            <div class="panel panel-primary">
+                <div class="panel-body text-center">
+                    <i class="fa-solid fa-users fa-3x" style="margin-bottom: 10px;"></i>
+                    <h4>Clientes</h4>
+                    <a href="/Clientes/ListaClientes" class="btn btn-primary btn-sm">Ir a Clientes</a>
+                </div>
+            </div>
+        </div>
+
+        <div style="width: 210px; margin: 0 5px;">
+            <div class="panel panel-success">
+                <div class="panel-body text-center">
+                    <i class="fa-solid fa-utensils fa-3x" style="margin-bottom: 10px;"></i>
+                    <h4>Menús</h4>
+                    <a href="/Menu/ListaMenus" class="btn btn-success btn-sm">Ir a Menús</a>
+                </div>
+            </div>
+        </div>
+
+        <div style="width: 210px; margin: 0 5px;">
+            <div class="panel panel-warning">
+                <div class="panel-body text-center">
+                    <i class="fa-solid fa-chair fa-3x" style="margin-bottom: 10px;"></i>
+                    <h4>Mesas</h4>
+                    <a href="/Mesas/ListaMesas" class="btn btn-warning btn-sm">Ir a Mesas</a>
+                </div>
+            </div>
+        </div>
+
+        <div style="width: 210px; margin: 0 5px;">
+            <div class="panel panel-info">
+                <div class="panel-body text-center">
+                    <i class="fa-solid fa-calendar-check fa-3x" style="margin-bottom: 10px;"></i>
+                    <h4>Reservaciones</h4>
+                    <a href="/Reservaciones/ListaReservaciones" class="btn btn-info btn-sm">Ir a Reservaciones</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

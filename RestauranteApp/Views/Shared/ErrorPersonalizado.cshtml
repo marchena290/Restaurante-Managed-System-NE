@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Error";
+}
+
+<div class="alert alert-danger" role="alert">
+    <h4 class="alert-heading">¡Error!</h4>
+    <p>@ViewBag.Error</p>
+    <hr>
+    <a href="@Url.Action("ListaClientes", "Clientes")" class="btn btn-primary">Volver a la lista</a>
+</div>
+

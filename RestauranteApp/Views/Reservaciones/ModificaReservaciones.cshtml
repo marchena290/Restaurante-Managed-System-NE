@@ -1,0 +1,85 @@
+﻿@model RestauranteApp.Models.M_Reservacion
+
+@{
+    ViewBag.Title = "ModificaReservaciones";
+}
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+<h2>Modificar Reservación</h2>
+
+@using (Html.BeginForm("Acciones", "Reservaciones", FormMethod.Post, new { enctype = "multipart/formdata", @id = "frmReservaciones" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdReservaciones, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IdReservaciones, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IdReservaciones, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdCliente, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.IdCliente, (SelectList)ViewBag.Clientes, "-- Seleccione un cliente --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdCliente, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdMesa, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.IdMesa, (SelectList)ViewBag.Mesas, "-- Seleccione una mesa --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdMesa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdMenu, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.IdMenu, (SelectList)ViewBag.Menus, "-- Seleccione un menú --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdMenu, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cantidad, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Cantidad, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Cantidad, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FechaReservacion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.FechaReservacion, new
+                {
+                    @class = "form-control",
+                    @type = "datetime-local",
+                    @Value = Model.FechaReservacion.ToString("yyyy-MM-ddTHH:mm")
+                })
+                @Html.ValidationMessageFor(model => model.FechaReservacion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" id="btnActualizar" name="submitButton" value="Actualizar" class="btn btn-success" title="Actualizar" data-toggle="tooltip" data-container="body"
+                        data-placement="right">
+                    Actualizar
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Regresar", "ListaReservaciones", null, new { @class = "btn btn-primary btn-sm" })
+</div>

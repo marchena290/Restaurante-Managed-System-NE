@@ -1,0 +1,574 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellido" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefono" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Correo" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="IdMenu" />
+          </Key>
+          <Property Name="IdMenu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Precio" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mesas">
+          <Key>
+            <PropertyRef Name="IdMesa" />
+          </Key>
+          <Property Name="IdMesa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumeroMesa" Type="int" Nullable="false" />
+          <Property Name="Capacidad" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reservaciones">
+          <Key>
+            <PropertyRef Name="IdReservaciones" />
+          </Key>
+          <Property Name="IdReservaciones" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCliente" Type="int" Nullable="false" />
+          <Property Name="IdMesa" Type="int" Nullable="false" />
+          <Property Name="IdMenu" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="FechaReservacion" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Reservacion_Cliente">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Reservaciones" Type="Self.Reservaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="Reservaciones">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservacion_Menu">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+          <End Role="Reservaciones" Type="Self.Reservaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="IdMenu" />
+            </Principal>
+            <Dependent Role="Reservaciones">
+              <PropertyRef Name="IdMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservacion_Mesa">
+          <End Role="Mesas" Type="Self.Mesas" Multiplicity="1" />
+          <End Role="Reservaciones" Type="Self.Reservaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mesas">
+              <PropertyRef Name="IdMesa" />
+            </Principal>
+            <Dependent Role="Reservaciones">
+              <PropertyRef Name="IdMesa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="PA_delCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PA_delMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdMenu" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PA_delMesa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdMesa" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PA_delReservacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdReservaciones" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PA_insCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
+          <Parameter Name="Apellido" Type="nvarchar" Mode="In" />
+          <Parameter Name="Telefono" Type="nvarchar" Mode="In" />
+          <Parameter Name="Correo" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="PA_insMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Descripcion" Type="nvarchar" Mode="In" />
+          <Parameter Name="Precio" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="PA_insMesa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NumeroMesa" Type="int" Mode="In" />
+          <Parameter Name="Capacidad" Type="int" Mode="In" />
+          <Parameter Name="Estado" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="PA_insReservacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <Parameter Name="IdMesa" Type="int" Mode="In" />
+          <Parameter Name="IdMenu" Type="int" Mode="In" />
+          <Parameter Name="Cantidad" Type="int" Mode="In" />
+          <Parameter Name="FechaReservacion" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="PA_modCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
+          <Parameter Name="Apellido" Type="nvarchar" Mode="In" />
+          <Parameter Name="Telefono" Type="nvarchar" Mode="In" />
+          <Parameter Name="Correo" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="PA_modMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdMenu" Type="int" Mode="In" />
+          <Parameter Name="Descripcion" Type="nvarchar" Mode="In" />
+          <Parameter Name="Precio" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="PA_modMesa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdMesa" Type="int" Mode="In" />
+          <Parameter Name="NumeroMesa" Type="int" Mode="In" />
+          <Parameter Name="Capacidad" Type="int" Mode="In" />
+          <Parameter Name="Estado" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="PA_modReservacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdReservaciones" Type="int" Mode="In" />
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <Parameter Name="IdMesa" Type="int" Mode="In" />
+          <Parameter Name="IdMenu" Type="int" Mode="In" />
+          <Parameter Name="Cantidad" Type="int" Mode="In" />
+          <Parameter Name="FechaReservacion" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="PA_recClientes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="PA_recClienteXId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PA_recMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="PA_recMenuXId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdMenu" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PA_recMesas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="PA_recMesaXId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdMesa" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PA_recReservaciones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="PA_recReservacionXId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdReservaciones" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="RDModelStoreContainer">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mesas" EntityType="Self.Mesas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reservaciones" EntityType="Self.Reservaciones" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Reservacion_Cliente" Association="Self.FK_Reservacion_Cliente">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Reservaciones" EntitySet="Reservaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservacion_Menu" Association="Self.FK_Reservacion_Menu">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="Reservaciones" EntitySet="Reservaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservacion_Mesa" Association="Self.FK_Reservacion_Mesa">
+            <End Role="Mesas" EntitySet="Mesas" />
+            <End Role="Reservaciones" EntitySet="Reservaciones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Reservaciones" Relationship="Self.FK_Reservacion_Cliente" FromRole="Clientes" ToRole="Reservaciones" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="IdMenu" />
+          </Key>
+          <Property Name="IdMenu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Precio" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Reservaciones" Relationship="Self.FK_Reservacion_Menu" FromRole="Menu" ToRole="Reservaciones" />
+        </EntityType>
+        <EntityType Name="Mesa">
+          <Key>
+            <PropertyRef Name="IdMesa" />
+          </Key>
+          <Property Name="IdMesa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumeroMesa" Type="Int32" Nullable="false" />
+          <Property Name="Capacidad" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Reservaciones" Relationship="Self.FK_Reservacion_Mesa" FromRole="Mesas" ToRole="Reservaciones" />
+        </EntityType>
+        <EntityType Name="Reservacione">
+          <Key>
+            <PropertyRef Name="IdReservaciones" />
+          </Key>
+          <Property Name="IdReservaciones" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="IdMesa" Type="Int32" Nullable="false" />
+          <Property Name="IdMenu" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="FechaReservacion" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Reservacion_Cliente" FromRole="Reservaciones" ToRole="Clientes" />
+          <NavigationProperty Name="Menu" Relationship="Self.FK_Reservacion_Menu" FromRole="Reservaciones" ToRole="Menu" />
+          <NavigationProperty Name="Mesa" Relationship="Self.FK_Reservacion_Mesa" FromRole="Reservaciones" ToRole="Mesas" />
+        </EntityType>
+        <Association Name="FK_Reservacion_Cliente">
+          <End Role="Clientes" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Reservaciones" Type="Self.Reservacione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="Reservaciones">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservacion_Menu">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+          <End Role="Reservaciones" Type="Self.Reservacione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="IdMenu" />
+            </Principal>
+            <Dependent Role="Reservaciones">
+              <PropertyRef Name="IdMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservacion_Mesa">
+          <End Role="Mesas" Type="Self.Mesa" Multiplicity="1" />
+          <End Role="Reservaciones" Type="Self.Reservacione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mesas">
+              <PropertyRef Name="IdMesa" />
+            </Principal>
+            <Dependent Role="Reservaciones">
+              <PropertyRef Name="IdMesa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RDEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clientes" EntityType="Self.Cliente" />
+          <EntitySet Name="Menus" EntityType="Self.Menu" />
+          <EntitySet Name="Mesas" EntityType="Self.Mesa" />
+          <EntitySet Name="Reservaciones" EntityType="Self.Reservacione" />
+          <AssociationSet Name="FK_Reservacion_Cliente" Association="Self.FK_Reservacion_Cliente">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Reservaciones" EntitySet="Reservaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservacion_Menu" Association="Self.FK_Reservacion_Menu">
+            <End Role="Menu" EntitySet="Menus" />
+            <End Role="Reservaciones" EntitySet="Reservaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservacion_Mesa" Association="Self.FK_Reservacion_Mesa">
+            <End Role="Mesas" EntitySet="Mesas" />
+            <End Role="Reservaciones" EntitySet="Reservaciones" />
+          </AssociationSet>
+          <FunctionImport Name="PA_delCliente">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PA_delMenu">
+            <Parameter Name="IdMenu" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PA_delMesa">
+            <Parameter Name="IdMesa" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PA_delReservacion">
+            <Parameter Name="IdReservaciones" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PA_insCliente">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Apellido" Mode="In" Type="String" />
+            <Parameter Name="Telefono" Mode="In" Type="String" />
+            <Parameter Name="Correo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PA_insMenu">
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Precio" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="PA_insMesa">
+            <Parameter Name="NumeroMesa" Mode="In" Type="Int32" />
+            <Parameter Name="Capacidad" Mode="In" Type="Int32" />
+            <Parameter Name="Estado" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PA_insReservacion">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="IdMesa" Mode="In" Type="Int32" />
+            <Parameter Name="IdMenu" Mode="In" Type="Int32" />
+            <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+            <Parameter Name="FechaReservacion" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="PA_modCliente">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Apellido" Mode="In" Type="String" />
+            <Parameter Name="Telefono" Mode="In" Type="String" />
+            <Parameter Name="Correo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PA_modMenu">
+            <Parameter Name="IdMenu" Mode="In" Type="Int32" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Precio" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="PA_modMesa">
+            <Parameter Name="IdMesa" Mode="In" Type="Int32" />
+            <Parameter Name="NumeroMesa" Mode="In" Type="Int32" />
+            <Parameter Name="Capacidad" Mode="In" Type="Int32" />
+            <Parameter Name="Estado" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PA_modReservacion">
+            <Parameter Name="IdReservaciones" Mode="In" Type="Int32" />
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="IdMesa" Mode="In" Type="Int32" />
+            <Parameter Name="IdMenu" Mode="In" Type="Int32" />
+            <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+            <Parameter Name="FechaReservacion" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="PA_recClientes" ReturnType="Collection(RDModel.PA_recClientes_Result)" />
+          <FunctionImport Name="PA_recClienteXId" ReturnType="Collection(RDModel.PA_recClienteXId_Result)">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PA_recMenu" ReturnType="Collection(RDModel.PA_recMenu_Result)" />
+          <FunctionImport Name="PA_recMenuXId" ReturnType="Collection(RDModel.PA_recMenuXId_Result)">
+            <Parameter Name="IdMenu" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PA_recMesas" ReturnType="Collection(RDModel.PA_recMesas_Result)" />
+          <FunctionImport Name="PA_recMesaXId" ReturnType="Collection(RDModel.PA_recMesaXId_Result)">
+            <Parameter Name="IdMesa" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PA_recReservaciones" ReturnType="Collection(RDModel.PA_recReservaciones_Result)" />
+          <FunctionImport Name="PA_recReservacionXId" ReturnType="Collection(RDModel.PA_recReservacionXId_Result)">
+            <Parameter Name="IdReservaciones" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="PA_recClientes_Result">
+          <Property Type="Int32" Name="IdCliente" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Apellido" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Telefono" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="Correo" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="PA_recClienteXId_Result">
+          <Property Type="Int32" Name="IdCliente" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Apellido" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Telefono" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="Correo" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="PA_recMenu_Result">
+          <Property Type="Int32" Name="IdMenu" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="255" />
+          <Property Type="Decimal" Name="Precio" Nullable="false" Precision="10" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="PA_recMenuXId_Result">
+          <Property Type="Int32" Name="IdMenu" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="255" />
+          <Property Type="Decimal" Name="Precio" Nullable="false" Precision="10" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="PA_recMesas_Result">
+          <Property Type="Int32" Name="IdMesa" Nullable="false" />
+          <Property Type="Int32" Name="NumeroMesa" Nullable="false" />
+          <Property Type="Int32" Name="Capacidad" Nullable="false" />
+          <Property Type="String" Name="Estado" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="PA_recMesaXId_Result">
+          <Property Type="Int32" Name="IdMesa" Nullable="false" />
+          <Property Type="Int32" Name="NumeroMesa" Nullable="false" />
+          <Property Type="Int32" Name="Capacidad" Nullable="false" />
+          <Property Type="String" Name="Estado" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="PA_recReservaciones_Result">
+          <Property Type="Int32" Name="IdReservaciones" Nullable="false" />
+          <Property Type="Int32" Name="IdCliente" Nullable="false" />
+          <Property Type="Int32" Name="IdMesa" Nullable="false" />
+          <Property Type="Int32" Name="IdMenu" Nullable="false" />
+          <Property Type="Int32" Name="Cantidad" Nullable="false" />
+          <Property Type="DateTime" Name="FechaReservacion" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="PA_recReservacionXId_Result">
+          <Property Type="Int32" Name="IdReservaciones" Nullable="false" />
+          <Property Type="Int32" Name="IdCliente" Nullable="false" />
+          <Property Type="Int32" Name="IdMesa" Nullable="false" />
+          <Property Type="Int32" Name="IdMenu" Nullable="false" />
+          <Property Type="Int32" Name="Cantidad" Nullable="false" />
+          <Property Type="DateTime" Name="FechaReservacion" Nullable="false" Precision="23" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RDModelStoreContainer" CdmEntityContainer="RDEntities">
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="RDModel.Cliente">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menus">
+            <EntityTypeMapping TypeName="RDModel.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="IdMenu" ColumnName="IdMenu" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mesas">
+            <EntityTypeMapping TypeName="RDModel.Mesa">
+              <MappingFragment StoreEntitySet="Mesas">
+                <ScalarProperty Name="IdMesa" ColumnName="IdMesa" />
+                <ScalarProperty Name="NumeroMesa" ColumnName="NumeroMesa" />
+                <ScalarProperty Name="Capacidad" ColumnName="Capacidad" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reservaciones">
+            <EntityTypeMapping TypeName="RDModel.Reservacione">
+              <MappingFragment StoreEntitySet="Reservaciones">
+                <ScalarProperty Name="IdReservaciones" ColumnName="IdReservaciones" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="IdMesa" ColumnName="IdMesa" />
+                <ScalarProperty Name="IdMenu" ColumnName="IdMenu" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="FechaReservacion" ColumnName="FechaReservacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="PA_delCliente" FunctionName="RDModel.Store.PA_delCliente" />
+          <FunctionImportMapping FunctionImportName="PA_delMenu" FunctionName="RDModel.Store.PA_delMenu" />
+          <FunctionImportMapping FunctionImportName="PA_delMesa" FunctionName="RDModel.Store.PA_delMesa" />
+          <FunctionImportMapping FunctionImportName="PA_delReservacion" FunctionName="RDModel.Store.PA_delReservacion" />
+          <FunctionImportMapping FunctionImportName="PA_insCliente" FunctionName="RDModel.Store.PA_insCliente" />
+          <FunctionImportMapping FunctionImportName="PA_insMenu" FunctionName="RDModel.Store.PA_insMenu" />
+          <FunctionImportMapping FunctionImportName="PA_insMesa" FunctionName="RDModel.Store.PA_insMesa" />
+          <FunctionImportMapping FunctionImportName="PA_insReservacion" FunctionName="RDModel.Store.PA_insReservacion" />
+          <FunctionImportMapping FunctionImportName="PA_modCliente" FunctionName="RDModel.Store.PA_modCliente" />
+          <FunctionImportMapping FunctionImportName="PA_modMenu" FunctionName="RDModel.Store.PA_modMenu" />
+          <FunctionImportMapping FunctionImportName="PA_modMesa" FunctionName="RDModel.Store.PA_modMesa" />
+          <FunctionImportMapping FunctionImportName="PA_modReservacion" FunctionName="RDModel.Store.PA_modReservacion" />
+          <FunctionImportMapping FunctionImportName="PA_recClientes" FunctionName="RDModel.Store.PA_recClientes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RDModel.PA_recClientes_Result">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PA_recClienteXId" FunctionName="RDModel.Store.PA_recClienteXId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RDModel.PA_recClienteXId_Result">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PA_recMenu" FunctionName="RDModel.Store.PA_recMenu">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RDModel.PA_recMenu_Result">
+                <ScalarProperty Name="IdMenu" ColumnName="IdMenu" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PA_recMenuXId" FunctionName="RDModel.Store.PA_recMenuXId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RDModel.PA_recMenuXId_Result">
+                <ScalarProperty Name="IdMenu" ColumnName="IdMenu" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PA_recMesas" FunctionName="RDModel.Store.PA_recMesas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RDModel.PA_recMesas_Result">
+                <ScalarProperty Name="IdMesa" ColumnName="IdMesa" />
+                <ScalarProperty Name="NumeroMesa" ColumnName="NumeroMesa" />
+                <ScalarProperty Name="Capacidad" ColumnName="Capacidad" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PA_recMesaXId" FunctionName="RDModel.Store.PA_recMesaXId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RDModel.PA_recMesaXId_Result">
+                <ScalarProperty Name="IdMesa" ColumnName="IdMesa" />
+                <ScalarProperty Name="NumeroMesa" ColumnName="NumeroMesa" />
+                <ScalarProperty Name="Capacidad" ColumnName="Capacidad" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PA_recReservaciones" FunctionName="RDModel.Store.PA_recReservaciones">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RDModel.PA_recReservaciones_Result">
+                <ScalarProperty Name="IdReservaciones" ColumnName="IdReservaciones" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="IdMesa" ColumnName="IdMesa" />
+                <ScalarProperty Name="IdMenu" ColumnName="IdMenu" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="FechaReservacion" ColumnName="FechaReservacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PA_recReservacionXId" FunctionName="RDModel.Store.PA_recReservacionXId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RDModel.PA_recReservacionXId_Result">
+                <ScalarProperty Name="IdReservaciones" ColumnName="IdReservaciones" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="IdMesa" ColumnName="IdMesa" />
+                <ScalarProperty Name="IdMenu" ColumnName="IdMenu" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="FechaReservacion" ColumnName="FechaReservacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

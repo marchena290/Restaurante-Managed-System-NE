@@ -1,0 +1,78 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-image: url('/Img/imagen-fondo-global.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 18px; /* Tamaño de letra base más grande */
+}
+
+/* Estilos para títulos */
+h1 {
+    font-size: 2.5rem;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+}
+
+h2 {
+    font-size: 2rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+}
+
+h3 {
+    font-size: 1.75rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+/* Contenido principal */
+.body-content {
+    background-color: rgba(255,255,255,0.8); /* Fondo semi-transparente */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Mejora de legibilidad para links */
+a {
+    color: #0056b3; /* Azul oscuro */
+    transition: color 0.3s ease;
+}
+
+a:hover {
+     color: #003580;
+     text-decoration: underline;
+}
+
+/* Estilos para botones */
+.btn {
+    font-size: 16px;
+}
+
+/* Formularios */
+input,
+select,
+textarea {
+    max-width: 280px;
+    font-size: 16px;
+}
+
+.jumbotron.jumbotron-fondo {
+    width: 100%;
+    margin: 0 0 30px 0; 
+    padding: 55px 20px;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                url('/Img/fondo-restaurante.jpg') center center no-repeat;
+    background-size: cover;
+    color: white;
+    border-radius: 0;
+}
+
+.center-box {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto; 
+    border-radius: 50px;
+}
+
+

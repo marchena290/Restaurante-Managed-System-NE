@@ -1,0 +1,45 @@
+﻿@model IEnumerable<RestauranteApp.Models.M_Menu>
+
+@{
+    ViewBag.Title = "ListaMenu";
+}
+
+<h2>Lista del Menu</h2>
+
+<p>
+    @Html.ActionLink("Crear un Menú", "AgregaMenu")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdMenu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Precio)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdMenu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            <td>
+                @Html.ActionLink("Modificar", "ModificaMenu", new { id=item.IdMenu }, new { @class = "btn btn-success btn-sm" }) |
+                @Html.ActionLink("Eliminar", "EliminaMenu", new { id = item.IdMenu }, new { @class = "btn btn-danger btn-sm" })
+            </td>
+        </tr>
+    }
+
+</table>
