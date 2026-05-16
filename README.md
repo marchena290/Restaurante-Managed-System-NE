@@ -1,33 +1,39 @@
-# 🍽️ RestaurantePro - Sistema de Gestión Transaccional
+# 🍽️ Restaurante Fénix - Sistema de Gestión Administrativo
 
-Sistema integral para la gestión operativa de negocios gastronómicos, desarrollado con un enfoque en la integridad de los datos y el alto rendimiento en procesos backend.
+Sistema administrativo para la gestión operativa de restaurantes, desarrollado como proyecto universitario en C# con arquitectura en capas.
 
 ## 🚀 Tecnologías Utilizadas
-* **Lenguaje:** C# 
-* **Framework:** .NET Framework 4.8 / ASP.NET MVC
-* **Base de Datos:** Microsoft SQL Server
-* **ORM:** Entity Framework / ADO.NET
-* **Frontend:** Razor Pages, HTML5, CSS3, Bootstrap
 
-## 🧠 Características Técnicas Destacadas
+- **Lenguaje:** C#
+- **Framework:** .NET Framework 4.8 / ASP.NET MVC
+- **Base de Datos:** Microsoft SQL Server
+- **ORM:** Entity Framework / ADO.NET
+- **Frontend:** Razor Pages, HTML5, CSS3, Bootstrap
 
-### 🗄️ Arquitectura de Base de Datos (SQL Server)
-El núcleo del sistema reside en una lógica de base de datos robusta para garantizar la consistencia en entornos multiusuario:
-* **Stored Procedures:** Implementación de procedimientos almacenados para la gestión de pedidos y facturación, reduciendo la latencia y aumentando la seguridad.
-* **Triggers & Constraints:** Uso de disparadores para auditoría de inventarios y restricciones de integridad referencial avanzadas.
-* **Optimización:** Índices diseñados para agilizar las consultas en tablas de alto tráfico (transacciones de ventas).
+## 🏗️ Arquitectura
 
-### 🏗️ Arquitectura de Software
-* **Patrón MVC:** Separación clara de responsabilidades para facilitar el mantenimiento y la escalabilidad.
-* **Lógica de Negocio:** Centralizada en servicios para asegurar que las reglas del restaurante (descuentos, impuestos, estados de mesa) se apliquen de forma uniforme.
-* **Seguridad:** Validaciones de lado del servidor y manejo seguro de cadenas de conexión.
+El sistema fue desarrollado siguiendo una arquitectura en capas:
+
+- **Acceso a Datos:** Conexión a SQL Server mediante Entity Framework y procedimientos almacenados.
+- **Entidades:** Modelos del dominio con Data Annotations para validación.
+- **Lógica de Negocio:** Reglas y operaciones centralizadas por módulo.
+- **Presentación:** Interfaz web con ASP.NET MVC y Razor Pages.
+
+## 📋 Módulos
+
+- **Clientes:** Registro y gestión de clientes (nombre, apellidos, teléfono, correo).
+- **Menú:** Administración de platos (descripción, precio).
+- **Mesas:** Gestión de mesas del restaurante.
+- **Reservaciones:** Creación y consulta de reservaciones vinculando cliente, mesa y menú.
 
 ## 🛠️ Instalación y Configuración
-1. Clonar el repositorio: `git clone https://github.com/marchena290/nombre-de-tu-repo.git`
+
+1. Clonar el repositorio: `git clone https://github.com/marchena290/Restaurante-Managed-System-NE.git`
 2. Abrir la solución (`.sln`) en **Visual Studio 2022**.
-3. Ejecutar el script SQL incluido en la carpeta `/Database` para generar las tablas y procedimientos.
+3. Crear la base de datos en SQL Server y ejecutar los procedimientos almacenados incluidos en el proyecto.
 4. Actualizar el `Web.config` con tus credenciales locales de SQL Server.
 5. Ejecutar (F5).
 
 ## 📄 Licencia
-Este proyecto fue desarrollado como parte de mi portafolio profesional de Ingeniería en Sistemas.
+
+Proyecto desarrollado como parte del curso Programación III — Ingeniería en Sistemas, Universidad Internacional San Isidro Labrador.
